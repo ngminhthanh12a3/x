@@ -16,6 +16,12 @@ tag: vVERSION
 
 ---
 
+## 1.0.5
+
+`2025-02-17`
+
+- DESLAPP Bubble with Default Markdown Render.
+
 ## 1.0.4
 
 `2024-12-25`

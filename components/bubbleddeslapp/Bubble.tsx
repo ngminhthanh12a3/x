@@ -1,7 +1,10 @@
 import classnames from 'classnames';
 import React from 'react';
 
-import { Avatar } from 'antd';
+import { Avatar, Typography } from 'antd';
+import hljs from 'highlight.js';
+import markdownit from 'markdown-it';
+import { BubbleDESLAPPProps } from '.';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import useTypedEffect from './hooks/useTypedEffect';
@@ -9,6 +12,23 @@ import useTypingConfig from './hooks/useTypingConfig';
 import type { BubbleProps } from './interface';
 import Loading from './loading';
 import useStyle from './style';
+import 'highlight.js/styles/github.css';
+import './index.css';
+
+const md = markdownit({
+  html: true,
+  breaks: true,
+  highlight: (str, lang) => {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        const codeHighlight = hljs.highlight(str, { language: lang }).value;
+        return codeHighlight;
+      } catch (__) {}
+    }
+
+    return ''; // use external default escaping
+  },
+});
 
 export interface BubbleRef {
   nativeElement: HTMLElement;
@@ -21,7 +41,6 @@ export interface BubbleContextProps {
 export const BubbleContext = React.createContext<BubbleContextProps>({});
 
 const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (props, ref) => {
-  console.log('Bubble Render');
   const {
     prefixCls: customizePrefixCls,
     className,
@@ -110,7 +129,16 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (props, r
   const avatarNode = React.isValidElement(avatar) ? avatar : <Avatar {...avatar} />;
 
   // =========================== Content ============================
-  const mergedContent = messageRender ? messageRender(typedContent as any) : typedContent;
+  const renderMarkdown: (content: string) => React.ReactNode = (content) => (
+    <Typography>
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: used in demo */}
+      <div dangerouslySetInnerHTML={{ __html: md.render(content) }} />
+    </Typography>
+  );
+
+  const mergedContent = messageRender
+    ? messageRender(typedContent as any, renderMarkdown)
+    : renderMarkdown(typedContent as any);
 
   // ============================ Render ============================
   let contentNode: React.ReactNode;
@@ -217,7 +245,7 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (props, r
 const ForwardBubble = React.forwardRef(Bubble);
 
 if (process.env.NODE_ENV !== 'production') {
-  ForwardBubble.displayName = 'Bubble';
+  ForwardBubble.displayName = 'Bubble DESLAPP';
 }
 
 export default ForwardBubble;

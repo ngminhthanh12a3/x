@@ -9,6 +9,9 @@ export type { SenderProps } from './sender';
 export { default as Bubble } from './bubble';
 export type { BubbleProps } from './bubble';
 
+export { default as BubbleDESLAPP } from './bubbleddeslapp';
+export type { BubbleDESLAPPProps } from './bubbleddeslapp';
+
 export { default as Conversations } from './conversations';
 export type { ConversationsProps } from './conversations';
 
