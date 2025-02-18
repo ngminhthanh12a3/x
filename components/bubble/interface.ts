@@ -31,7 +31,10 @@ export interface BubbleProps<ContentType extends BubbleContentType = string>
   loading?: boolean;
   typing?: boolean | TypingOption;
   content?: BubbleContentType;
-  messageRender?: (content: ContentType) => React.ReactNode;
+  messageRender?: (
+    content: ContentType,
+    defaultRender: (content: string) => React.ReactNode,
+  ) => React.ReactNode;
   loadingRender?: () => React.ReactNode;
   variant?: 'filled' | 'borderless' | 'outlined' | 'shadow';
   shape?: 'round' | 'corner';

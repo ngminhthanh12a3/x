@@ -35,6 +35,9 @@ export interface BubbleListProps extends React.HTMLAttributes<HTMLDivElement> {
   prefixCls?: string;
   rootClassName?: string;
   items?: BubbleDataType[];
+  itemProps?: {
+    onClick: (key: BubbleDataType['key'], role: BubbleDataType['role']) => void;
+  };
   autoScroll?: boolean;
   roles?: RolesType;
 }
@@ -49,6 +52,7 @@ const BubbleList: React.ForwardRefRenderFunction<BubbleListRef, BubbleListProps>
     items,
     autoScroll = true,
     roles,
+    itemProps,
     ...restProps
   } = props;
   const domProps = pickAttrs(restProps, {
@@ -199,6 +203,7 @@ const BubbleList: React.ForwardRefRenderFunction<BubbleListRef, BubbleListProps>
               bubble.onTypingComplete?.();
               onTypingComplete(key);
             }}
+            onClick={itemProps?.onClick ? () => itemProps.onClick(key, bubble.role) : undefined}
           />
         ))}
       </div>

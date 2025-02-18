@@ -20,7 +20,11 @@ tag: vVERSION
 
 `2025-02-17`
 
-- DESLAPP Bubble with Default Markdown Render.
+- DESLAPP `Bubble` with Default Markdown Render.
+- Merge DESLAPP `Bubble` with default `Bubble`.
+- Fix non-string typed messages in `Bubble`.
+- Fix `Bubble` type.
+- Add `Bubble` onClick event.
 
 `2025-01-13`
 
