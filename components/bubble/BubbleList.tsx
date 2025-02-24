@@ -190,6 +190,7 @@ const BubbleList: React.ForwardRefRenderFunction<BubbleListRef, BubbleListProps>
         {displayData.map(({ key, ...bubble }) => (
           <Bubble
             {...bubble}
+            bubbleKey={key}
             key={key}
             ref={(node) => {
               if (node) {

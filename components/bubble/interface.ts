@@ -22,6 +22,7 @@ export type BubbleContentType = React.ReactNode | AnyObject;
 
 export interface BubbleProps<ContentType extends BubbleContentType = string>
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'content'> {
+  bubbleKey: string | number;
   prefixCls?: string;
   rootClassName?: string;
   styles?: Partial<Record<SemanticType, React.CSSProperties>>;
@@ -34,11 +35,12 @@ export interface BubbleProps<ContentType extends BubbleContentType = string>
   messageRender?: (
     content: ContentType,
     defaultRender: (content: string) => React.ReactNode,
+    bubbleKey: string | number,
   ) => React.ReactNode;
   loadingRender?: () => React.ReactNode;
   variant?: 'filled' | 'borderless' | 'outlined' | 'shadow';
   shape?: 'round' | 'corner';
   onTypingComplete?: VoidFunction;
-  header?: React.ReactNode;
-  footer?: React.ReactNode;
+  header?: (bubbleKey: string | number, content: ContentType) => React.ReactNode;
+  footer?: (bubbleKey: string | number, content: ContentType) => React.ReactNode;
 }

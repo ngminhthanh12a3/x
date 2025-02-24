@@ -42,6 +42,7 @@ export const BubbleContext = React.createContext<BubbleContextProps>({});
 
 const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (props, ref) => {
   const {
+    bubbleKey,
     prefixCls: customizePrefixCls,
     className,
     rootClassName,
@@ -136,7 +137,7 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (props, r
     </Typography>
   );
   const mergedContent = messageRender
-    ? messageRender(typedContent as any, renderMarkdown)
+    ? messageRender(typedContent as any, renderMarkdown, bubbleKey)
     : typeof typedContent === 'string'
       ? renderMarkdown(typedContent)
       : typedContent;
@@ -186,7 +187,7 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (props, r
               ...styles.header,
             }}
           >
-            {header}
+            {header(bubbleKey, content as string)}
           </div>
         )}
         {fullContent}
@@ -202,7 +203,7 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (props, r
               ...styles.footer,
             }}
           >
-            {footer}
+            {footer(bubbleKey, content as string)}
           </div>
         )}
       </div>

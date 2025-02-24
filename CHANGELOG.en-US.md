@@ -25,6 +25,7 @@ tag: vVERSION
 - Fix non-string typed messages in `Bubble`.
 - Fix `Bubble` type.
 - Add `Bubble` onClick event.
+- Modify Footer and Header property of `Bubble`
 
 `2025-01-13`
 
